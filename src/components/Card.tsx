@@ -6,16 +6,9 @@ interface CardProps {
 
 function Card({ person }: CardProps) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        borderBottom: '1px solid #f0f0f0',
-        alignItems: 'center',
-        padding: '8px 0',
-      }}
-    >
-      <div style={{ flex: 2, paddingLeft: 8 }}>{person.name}</div>
-      <div style={{ flex: 3 }}>
+    <div className="grid grid-cols-5 border-b border-gray-100 items-center py-2 hover:bg-gray-50 transition-colors">
+      <div className="col-span-2 pl-2">{person.name}</div>
+      <div className="col-span-3">
         Birth Year: {person.birth_year}, Gender: {person.gender}
       </div>
     </div>

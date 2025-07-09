@@ -1,65 +1,4 @@
-import React, { type FormEvent, Component, type CSSProperties } from 'react';
-
-const styles = {
-  form: {
-    display: 'flex',
-    alignItems: 'center',
-    background: '#fff',
-    borderRadius: '2em',
-    boxShadow: '0 2px 6px 0 rgba(60,64,67,.15)',
-    padding: '0.25em 1.25em',
-    width: 'auto',
-    maxWidth: '40rem',
-    margin: '2rem auto',
-    border: '1px solid #eee',
-  } as CSSProperties,
-  input: {
-    flex: 1,
-    fontSize: '1.25rem',
-    padding: '0.75em 0',
-    border: 'none',
-    outline: 'none',
-    background: 'transparent',
-    boxShadow: 'none',
-  } as CSSProperties,
-  iconButton: {
-    background: 'none',
-    border: 'none',
-    outline: 'none',
-    cursor: 'pointer',
-    padding: '0 0.5em',
-    display: 'flex',
-    alignItems: 'center',
-    height: '2.5em',
-  } as CSSProperties,
-  iconButtonFocus: {
-    outline: 'none',
-    boxShadow: 'none',
-  } as CSSProperties,
-  icon: {
-    width: '1.5em',
-    height: '1.5em',
-    color: '#5f6368',
-    display: 'block',
-  } as CSSProperties,
-  clearButton: {
-    background: 'none',
-    border: 'none',
-    outline: 'none',
-    cursor: 'pointer',
-    padding: '0 0.5em',
-    display: 'flex',
-    alignItems: 'center',
-    height: '2.5em',
-    marginRight: '0.25em',
-  } as CSSProperties,
-  clearIcon: {
-    width: '1.25em',
-    height: '1.25em',
-    color: '#b0b0b0',
-    display: 'block',
-  } as CSSProperties,
-};
+import React, { type FormEvent, Component } from 'react';
 
 interface SearchProps {
   onSearch: (query: string) => void;
@@ -106,24 +45,28 @@ class Search extends Component<SearchProps, SearchState> {
 
   render() {
     return (
-      <form style={styles.form} onSubmit={this.handleSubmit} role="search">
+      <form
+        className="flex items-center bg-white rounded-full shadow-md px-5 py-1 w-auto max-w-xl mx-auto my-8 border border-gray-200"
+        onSubmit={this.handleSubmit}
+        role="search"
+      >
         <input
           type="text"
           placeholder="Search by name..."
           ref={this.inputRef}
-          style={styles.input}
+          className="flex-1 text-xl py-3 bg-transparent border-none outline-none shadow-none"
           aria-label="Search input"
           onInput={this.handleInput}
         />
         {this.state.hasValue && (
           <button
             type="button"
-            style={styles.clearButton}
+            className="bg-transparent border-none outline-none cursor-pointer px-2 flex items-center h-10 mr-1"
             aria-label="Clear search input"
             onClick={this.handleClear}
           >
             <svg
-              style={styles.clearIcon}
+              className="w-5 h-5 text-gray-400 block"
               viewBox="0 0 24 24"
               focusable="false"
               aria-hidden="true"
@@ -134,17 +77,11 @@ class Search extends Component<SearchProps, SearchState> {
         )}
         <button
           type="submit"
-          style={styles.iconButton}
+          className="bg-transparent border-none outline-none cursor-pointer px-2 flex items-center h-10"
           aria-label="Search"
-          onFocus={(e) => {
-            Object.assign(e.currentTarget.style, styles.iconButtonFocus);
-          }}
-          onBlur={(e) => {
-            Object.assign(e.currentTarget.style, styles.iconButton);
-          }}
         >
           <svg
-            style={styles.icon}
+            className="w-6 h-6 text-gray-600 block"
             viewBox="0 0 24 24"
             focusable="false"
             aria-hidden="true"

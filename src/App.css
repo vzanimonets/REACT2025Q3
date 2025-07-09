@@ -69,8 +69,46 @@ body {
   padding: 1em 0;
 }
 
+.top-controls {
+  background: #f9f9f9;
+  border-radius: 1em;
+  box-shadow: 0 2px 6px 0 rgba(60, 64, 67, 0.1);
+  padding: 1.5em 2em;
+  margin-bottom: 2em;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.results-section {
+  background: #fcfcfc;
+  border-radius: 1em;
+  box-shadow: 0 2px 6px 0 rgba(60, 64, 67, 0.08);
+  border: 1px solid #eee;
+  padding: 1.5em 2em;
+  margin-bottom: 1.5em;
+  min-height: 12em;
+}
+
+.results-list {
+  width: 100%;
+  max-width: 32em;
+  margin: 0 auto;
+}
+
 .error-btn-container {
   display: flex;
   justify-content: flex-end;
   margin-top: 1em;
+}
+
+@media (max-width: 600px) {
+  .app-container {
+    padding: 0.5rem;
+  }
+  .top-controls,
+  .results-section {
+    padding: 1em 0.5em;
+  }
 }
