@@ -61,14 +61,18 @@ const styles = {
   } as CSSProperties,
 };
 
+interface SearchProps {
+  onSearch: (query: string) => void;
+}
+
 interface SearchState {
   hasValue: boolean;
 }
 
-class Search extends Component<object, SearchState> {
+class Search extends Component<SearchProps, SearchState> {
   private inputRef = React.createRef<HTMLInputElement>();
 
-  constructor(props: object) {
+  constructor(props: SearchProps) {
     super(props);
     this.state = { hasValue: false };
   }
@@ -83,11 +87,9 @@ class Search extends Component<object, SearchState> {
 
   handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const query = this.inputRef.current?.value.trim();
-    if (query) {
-      localStorage.setItem('searchTerm', query);
-      console.log('Search query:', query);
-    }
+    const query = this.inputRef.current?.value.trim() || '';
+    localStorage.setItem('searchTerm', query);
+    this.props.onSearch(query);
   };
 
   handleInput = () => {
@@ -107,7 +109,7 @@ class Search extends Component<object, SearchState> {
       <form style={styles.form} onSubmit={this.handleSubmit} role="search">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search by name..."
           ref={this.inputRef}
           style={styles.input}
           aria-label="Search input"
