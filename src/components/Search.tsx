@@ -43,10 +43,18 @@ const styles = {
 class Search extends Component {
   private inputRef = React.createRef<HTMLInputElement>();
 
+  componentDidMount() {
+    const savedTerm = localStorage.getItem('searchTerm') || '';
+    if (this.inputRef.current) {
+      this.inputRef.current.value = savedTerm;
+    }
+  }
+
   handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const query = this.inputRef.current?.value.trim();
     if (query) {
+      localStorage.setItem('searchTerm', query);
       console.log('Search query:', query);
     }
   };
