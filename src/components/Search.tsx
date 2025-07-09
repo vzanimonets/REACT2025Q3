@@ -1,5 +1,4 @@
-import React, { type FormEvent } from 'react';
-import { Component, type CSSProperties } from 'react';
+import React, { type FormEvent, Component, type CSSProperties } from 'react';
 
 const styles = {
   form: {
@@ -43,15 +42,42 @@ const styles = {
     color: '#5f6368',
     display: 'block',
   } as CSSProperties,
+  clearButton: {
+    background: 'none',
+    border: 'none',
+    outline: 'none',
+    cursor: 'pointer',
+    padding: '0 0.5em',
+    display: 'flex',
+    alignItems: 'center',
+    height: '2.5em',
+    marginRight: '0.25em',
+  } as CSSProperties,
+  clearIcon: {
+    width: '1.25em',
+    height: '1.25em',
+    color: '#b0b0b0',
+    display: 'block',
+  } as CSSProperties,
 };
 
-class Search extends Component {
+interface SearchState {
+  hasValue: boolean;
+}
+
+class Search extends Component<object, SearchState> {
   private inputRef = React.createRef<HTMLInputElement>();
+
+  constructor(props: object) {
+    super(props);
+    this.state = { hasValue: false };
+  }
 
   componentDidMount() {
     const savedTerm = localStorage.getItem('searchTerm') || '';
     if (this.inputRef.current) {
       this.inputRef.current.value = savedTerm;
+      this.setState({ hasValue: !!savedTerm });
     }
   }
 
@@ -64,6 +90,18 @@ class Search extends Component {
     }
   };
 
+  handleInput = () => {
+    this.setState({ hasValue: !!this.inputRef.current?.value });
+  };
+
+  handleClear = () => {
+    if (this.inputRef.current) {
+      this.inputRef.current.value = '';
+      this.inputRef.current.focus();
+      this.setState({ hasValue: false });
+    }
+  };
+
   render() {
     return (
       <form style={styles.form} onSubmit={this.handleSubmit} role="search">
@@ -73,7 +111,25 @@ class Search extends Component {
           ref={this.inputRef}
           style={styles.input}
           aria-label="Search input"
+          onInput={this.handleInput}
         />
+        {this.state.hasValue && (
+          <button
+            type="button"
+            style={styles.clearButton}
+            aria-label="Clear search input"
+            onClick={this.handleClear}
+          >
+            <svg
+              style={styles.clearIcon}
+              viewBox="0 0 24 24"
+              focusable="false"
+              aria-hidden="true"
+            >
+              <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z" />
+            </svg>
+          </button>
+        )}
         <button
           type="submit"
           style={styles.iconButton}
