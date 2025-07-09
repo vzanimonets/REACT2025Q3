@@ -5,38 +5,43 @@ const styles = {
   form: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem',
-    justifyContent: 'center',
-    padding: '2rem 0',
+    background: '#fff',
+    borderRadius: '2em',
+    boxShadow: '0 2px 6px 0 rgba(60,64,67,.15)',
+    padding: '0.25em 1.25em',
+    width: 'auto',
+    maxWidth: '40rem',
+    margin: '2rem auto',
+    border: '1px solid #eee',
   } as CSSProperties,
   input: {
+    flex: 1,
     fontSize: '1.25rem',
-    padding: '0.5em 1em',
-    border: '1px solid #ccc',
-    borderRadius: '0.5em',
-    outline: 'none',
-    transition: 'border-color 0.2s',
-    width: '16.25rem', // 260px -> 16.25rem
-  } as CSSProperties,
-  inputFocus: {
-    borderColor: '#007bff',
-  } as CSSProperties,
-  inputBlur: {
-    borderColor: '#ccc',
-  } as CSSProperties,
-  button: {
-    fontSize: '1.25rem',
-    padding: '0.5em 2em',
+    padding: '0.75em 0',
     border: 'none',
-    borderRadius: '0.5em',
-    background: '#f7f7f7',
-    cursor: 'pointer',
-    fontWeight: 500,
-    boxShadow: '0 0.125em 0.5em rgba(0,0,0,0.03)',
-    transition: 'background 0.2s',
+    outline: 'none',
+    background: 'transparent',
+    boxShadow: 'none',
   } as CSSProperties,
-  buttonHover: {
-    background: '#e9ecef',
+  iconButton: {
+    background: 'none',
+    border: 'none',
+    outline: 'none',
+    cursor: 'pointer',
+    padding: '0 0.5em',
+    display: 'flex',
+    alignItems: 'center',
+    height: '2.5em',
+  } as CSSProperties,
+  iconButtonFocus: {
+    outline: 'none',
+    boxShadow: 'none',
+  } as CSSProperties,
+  icon: {
+    width: '1.5em',
+    height: '1.5em',
+    color: '#5f6368',
+    display: 'block',
   } as CSSProperties,
 };
 
@@ -59,42 +64,35 @@ class Search extends Component {
     }
   };
 
-  handleMouseOver = (e: React.MouseEvent<HTMLButtonElement>) => {
-    Object.assign(e.currentTarget.style, styles.buttonHover);
-  };
-
-  handleMouseOut = (e: React.MouseEvent<HTMLButtonElement>) => {
-    Object.assign(e.currentTarget.style, styles.button);
-  };
-
-  handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    Object.assign(e.currentTarget.style, styles.inputFocus);
-  };
-
-  handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    Object.assign(e.currentTarget.style, styles.inputBlur);
-  };
-
   render() {
     return (
-      <form style={styles.form} onSubmit={this.handleSubmit}>
+      <form style={styles.form} onSubmit={this.handleSubmit} role="search">
         <input
           type="text"
           placeholder="Search..."
           ref={this.inputRef}
           style={styles.input}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
           aria-label="Search input"
         />
         <button
           type="submit"
-          style={styles.button}
-          onMouseOver={this.handleMouseOver}
-          onMouseOut={this.handleMouseOut}
-          aria-label="Search button"
+          style={styles.iconButton}
+          aria-label="Search"
+          onFocus={(e) => {
+            Object.assign(e.currentTarget.style, styles.iconButtonFocus);
+          }}
+          onBlur={(e) => {
+            Object.assign(e.currentTarget.style, styles.iconButton);
+          }}
         >
-          Search
+          <svg
+            style={styles.icon}
+            viewBox="0 0 24 24"
+            focusable="false"
+            aria-hidden="true"
+          >
+            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+          </svg>
         </button>
       </form>
     );
