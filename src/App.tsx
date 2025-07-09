@@ -1,4 +1,3 @@
-import './App.css';
 import Search from './components/Search';
 import CardList from './components/CardList';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -53,20 +52,18 @@ class App extends Component<object, AppState> {
     const { people, loading, error } = this.state;
     return (
       <ErrorBoundary>
-        <div className="app-container">
-          <header className="top-controls">
+        <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none">
+          <header className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200 flex flex-col items-center">
             <Search onSearch={this.handleSearch} />
           </header>
-          <main className="results-section">
+          <main className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200 min-h-[12em]">
             {loading && <div>Loading...</div>}
-            {error && (
-              <div style={{ color: 'red', marginBottom: 16 }}>{error}</div>
-            )}
-            <div className="results-list">
+            {error && <div className="text-red-600 mb-2">{error}</div>}
+            <div className="w-full">
               <CardList people={people} />
             </div>
           </main>
-          <div className="error-btn-container">
+          <div className="flex justify-end mt-2">
             <ErrorButton />
           </div>
         </div>

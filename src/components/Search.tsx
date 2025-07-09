@@ -46,7 +46,7 @@ class Search extends Component<SearchProps, SearchState> {
   render() {
     return (
       <form
-        className="flex items-center bg-white rounded-full shadow-md px-5 py-1 w-auto max-w-xl mx-auto my-8 border border-gray-200"
+        className="flex items-center bg-white rounded-full shadow-md px-5 py-1 w-auto max-w-2xl mx-auto my-8 border border-gray-200"
         onSubmit={this.handleSubmit}
         role="search"
       >
@@ -54,7 +54,7 @@ class Search extends Component<SearchProps, SearchState> {
           type="text"
           placeholder="Search by name..."
           ref={this.inputRef}
-          className="flex-1 text-xl py-3 bg-transparent border-none outline-none shadow-none"
+          className="flex-1 min-w-[300px] text-xl py-3 bg-transparent border-none outline-none shadow-none"
           aria-label="Search input"
           onInput={this.handleInput}
         />
