@@ -54,14 +54,14 @@ class Search extends Component<SearchProps, SearchState> {
           type="text"
           placeholder="Search by name..."
           ref={this.inputRef}
-          className="flex-1 min-w-[300px] text-xl py-3 bg-transparent border-none outline-none shadow-none"
+          className="flex-1 min-w-[300px] text-xl py-3 bg-transparent border-none outline-none shadow-none focus:outline-none"
           aria-label="Search input"
           onInput={this.handleInput}
         />
         {this.state.hasValue && (
           <button
             type="button"
-            className="bg-transparent border-none outline-none cursor-pointer px-2 flex items-center h-10 mr-1"
+            className="bg-transparent border-none outline-none cursor-pointer px-2 flex items-center h-10 mr-1 focus:outline-none"
             aria-label="Clear search input"
             onClick={this.handleClear}
           >
@@ -77,7 +77,7 @@ class Search extends Component<SearchProps, SearchState> {
         )}
         <button
           type="submit"
-          className="bg-transparent border-none outline-none cursor-pointer px-2 flex items-center h-10"
+          className="bg-transparent border-none outline-none cursor-pointer px-2 flex items-center h-10 focus:outline-none"
           aria-label="Search"
         >
           <svg
