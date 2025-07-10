@@ -1,6 +1,6 @@
 import type { SwapiPerson } from '../swapi';
 import ResultsBody from './ResultsBody';
-import ResultsHeader from './ResultsHearder';
+import ResultsHeader from './ResultsHeader';
 
 interface ErrorObject {
   text: string;
