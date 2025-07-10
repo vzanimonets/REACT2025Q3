@@ -57,10 +57,9 @@ class App extends Component<object, AppState> {
             <Search onSearch={this.handleSearch} />
           </header>
           <main className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200 min-h-[12em]">
-            {loading && <div>Loading...</div>}
             {error && <div className="text-red-600 mb-2">{error}</div>}
             <div className="w-full">
-              <CardList people={people} />
+              <CardList people={people} loading={loading} />
             </div>
           </main>
           <div className="flex justify-end mt-2">
