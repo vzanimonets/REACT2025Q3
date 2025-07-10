@@ -11,7 +11,7 @@ interface AppState {
   searchTerm: string;
   people: SwapiPerson[];
   loading: boolean;
-  error: string | null;
+  error: string | { text: string; errorCode: number } | null;
 }
 
 class App extends Component<object, AppState> {
@@ -38,8 +38,25 @@ class App extends Component<object, AppState> {
       .then((data) => {
         this.setState({ people: data.results, loading: false });
       })
-      .catch((err) => {
-        this.setState({ error: err.message, loading: false, people: [] });
+      .catch((err: unknown) => {
+        let errorObj: string | { text: string; errorCode: number };
+        if (
+          err instanceof Error &&
+          err.message &&
+          err.message.includes('SWAPI request failed:')
+        ) {
+          const match = err.message.match(/(\\d{3})/);
+          const code = match ? parseInt(match[1], 10) : undefined;
+          errorObj = code
+            ? { text: err.message, errorCode: code }
+            : err.message;
+        } else {
+          errorObj =
+            err instanceof Error
+              ? err.message || 'Unknown error'
+              : 'Unknown error';
+        }
+        this.setState({ error: errorObj, loading: false, people: [] });
       });
   };
 
@@ -60,7 +77,7 @@ class App extends Component<object, AppState> {
             <Results
               people={people}
               loading={loading}
-              error={error || undefined}
+              error={error === null ? undefined : error}
             />
           </main>
           <div className="flex justify-end mt-2">

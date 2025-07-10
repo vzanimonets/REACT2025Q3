@@ -5,12 +5,12 @@ import ResultsHeader from './ResultsHearder';
 interface ResultsProps {
   people: SwapiPerson[];
   loading?: boolean;
-  error?: string;
+  error?: string | { text: string; errorCode: number };
 }
 
 function Results({ people, loading, error }: ResultsProps) {
   return (
-    <div className="w-full h-[24em] min-h-[24em]">
+    <div className="w-full h-[60vh] min-h-[60vh]">
       <ResultsHeader />
       <ResultsBody people={people} loading={loading} error={error} />
     </div>
