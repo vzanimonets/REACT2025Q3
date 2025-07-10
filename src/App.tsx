@@ -32,6 +32,17 @@ class App extends Component<object, AppState> {
     });
   }
 
+  handleSearchInputChange = (value: string) => {
+    this.setState({ searchTerm: value });
+  };
+
+  handleSearch = () => {
+    const { searchTerm } = this.state;
+    const trimmed = searchTerm.trim();
+    localStorage.setItem('searchTerm', trimmed);
+    this.fetchPeople(trimmed);
+  };
+
   fetchPeople = (searchTerm: string) => {
     this.setState({ loading: true, error: null });
     fetchPeople({ search: searchTerm })
@@ -45,7 +56,7 @@ class App extends Component<object, AppState> {
           err.message &&
           err.message.includes('SWAPI request failed:')
         ) {
-          const match = err.message.match(/(\\d{3})/);
+          const match = err.message.match(/(\d{3})/);
           const code = match ? parseInt(match[1], 10) : undefined;
           errorObj = code
             ? { text: err.message, errorCode: code }
@@ -60,19 +71,18 @@ class App extends Component<object, AppState> {
       });
   };
 
-  handleSearch = (query: string) => {
-    this.setState({ searchTerm: query });
-    this.fetchPeople(query);
-  };
-
   render(): ReactNode {
-    const { people, loading, error } = this.state;
+    const { people, loading, error, searchTerm } = this.state;
     return (
       <ErrorBoundary>
         <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none">
           <h1 className="text-center">Star Wars Characters</h1>
           <header className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200 flex flex-col items-center">
-            <Search onSearch={this.handleSearch} />
+            <Search
+              value={searchTerm}
+              onChange={this.handleSearchInputChange}
+              onSearch={this.handleSearch}
+            />
           </header>
           <main className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200">
             <Results
