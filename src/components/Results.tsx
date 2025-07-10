@@ -10,7 +10,7 @@ interface ResultsProps {
 
 function Results({ people, loading, error }: ResultsProps) {
   return (
-    <div className="w-full h-[60vh] min-h-[60vh]">
+    <div className="w-full h-[50vh] min-h-[50vh]">
       <ResultsHeader />
       <ResultsBody people={people} loading={loading} error={error} />
     </div>

@@ -70,6 +70,7 @@ class App extends Component<object, AppState> {
     return (
       <ErrorBoundary>
         <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none">
+          <h1 className="text-center">Star Wars Characters</h1>
           <header className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200 flex flex-col items-center">
             <Search onSearch={this.handleSearch} />
           </header>
