@@ -28,7 +28,11 @@ class Search extends Component<SearchProps> {
         onSubmit={this.handleSubmit}
         role="search"
       >
+        <label htmlFor="search-input" className="sr-only">
+          Search
+        </label>
         <input
+          id="search-input"
           type="text"
           placeholder="Search by name..."
           value={value}
