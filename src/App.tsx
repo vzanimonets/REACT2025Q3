@@ -7,11 +7,16 @@ import type { SwapiPerson } from './swapi';
 import type { ReactNode } from 'react';
 import { Component } from 'react';
 
+interface ErrorObject {
+  text: string;
+  errorCode?: number;
+}
+
 interface AppState {
   searchTerm: string;
   people: SwapiPerson[];
   loading: boolean;
-  error: string | { text: string; errorCode: number } | null;
+  error: ErrorObject | null;
 }
 
 class App extends Component<object, AppState> {
@@ -50,7 +55,7 @@ class App extends Component<object, AppState> {
         this.setState({ people: data.results, loading: false });
       })
       .catch((err: unknown) => {
-        let errorObj: string | { text: string; errorCode: number };
+        let errorObj: ErrorObject;
         if (
           err instanceof Error &&
           err.message &&
@@ -58,14 +63,14 @@ class App extends Component<object, AppState> {
         ) {
           const match = err.message.match(/(\d{3})/);
           const code = match ? parseInt(match[1], 10) : undefined;
-          errorObj = code
-            ? { text: err.message, errorCode: code }
-            : err.message;
+          errorObj = { text: err.message, errorCode: code };
         } else {
-          errorObj =
-            err instanceof Error
-              ? err.message || 'Unknown error'
-              : 'Unknown error';
+          errorObj = {
+            text:
+              err instanceof Error
+                ? err.message || 'Unknown error'
+                : 'Unknown error',
+          };
         }
         this.setState({ error: errorObj, loading: false, people: [] });
       });
@@ -85,11 +90,7 @@ class App extends Component<object, AppState> {
             />
           </header>
           <main className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200">
-            <Results
-              people={people}
-              loading={loading}
-              error={error === null ? undefined : error}
-            />
+            <Results people={people} loading={loading} error={error} />
           </main>
           <div className="flex justify-end mt-2">
             <ErrorButton />
