@@ -5,9 +5,10 @@ import Spinner from './Spinner';
 interface CardListProps {
   people: SwapiPerson[];
   loading?: boolean;
+  error?: string;
 }
 
-function CardList({ people, loading }: CardListProps) {
+function CardList({ people, loading, error }: CardListProps) {
   return (
     <>
       <div className="grid grid-cols-5 font-bold border-b border-gray-300 py-2 bg-gray-50">
@@ -18,6 +19,8 @@ function CardList({ people, loading }: CardListProps) {
       <div className="w-full h-80 overflow-y-auto flex items-top justify-center">
         {loading ? (
           <Spinner />
+        ) : error ? (
+          <div className="w-full text-center py-8 text-red-600">{error}</div>
         ) : people.length === 0 ? (
           <div className="w-full text-center py-8">No results found.</div>
         ) : (
