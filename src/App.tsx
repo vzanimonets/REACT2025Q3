@@ -1,5 +1,5 @@
 import Search from './components/Search';
-import CardList from './components/CardList';
+import Results from './components/Results';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorButton from './components/ErrorButton';
 import { fetchPeople } from './swapi';
@@ -56,14 +56,12 @@ class App extends Component<object, AppState> {
           <header className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200 flex flex-col items-center">
             <Search onSearch={this.handleSearch} />
           </header>
-          <main className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200 min-h-[12em]">
-            <div className="w-full">
-              <CardList
-                people={people}
-                loading={loading}
-                error={error || undefined}
-              />
-            </div>
+          <main className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200">
+            <Results
+              people={people}
+              loading={loading}
+              error={error || undefined}
+            />
           </main>
           <div className="flex justify-end mt-2">
             <ErrorButton />
