@@ -2,8 +2,8 @@ import Search from './components/Search';
 import Results from './components/Results';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorButton from './components/ErrorButton';
-import { fetchPeople } from './swapi';
-import type { SwapiPerson } from './swapi';
+import { fetchPeople } from './api/swapi';
+import type { SwapiPerson } from './api/swapi';
 import type { ReactNode } from 'react';
 import { Component } from 'react';
 

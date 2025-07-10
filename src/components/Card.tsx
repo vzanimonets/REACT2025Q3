@@ -1,4 +1,4 @@
-import type { SwapiPerson } from '../swapi';
+import type { SwapiPerson } from '../api/swapi';
 
 interface CardProps {
   person: SwapiPerson;

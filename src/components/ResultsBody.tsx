@@ -1,7 +1,7 @@
 import Message from './Message';
 import Spinner from './Spinner';
 import Card from './Card';
-import type { SwapiPerson } from '../swapi';
+import type { SwapiPerson } from '../api/swapi';
 
 interface ErrorObject {
   text: string;
