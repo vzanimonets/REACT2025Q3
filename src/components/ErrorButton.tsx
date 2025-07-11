@@ -12,7 +12,7 @@ class ErrorButton extends Component<ErrorButtonProps> {
     return (
       <button
         onClick={this.handleClick}
-        className="fixed right-6 bottom-6 z-50 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
+        className="fixed right-6 bottom-6 z-50 bg-orange-400 text-white px-4 py-2 rounded hover:bg-orange-500 transition-colors"
       >
         Throw Error
       </button>

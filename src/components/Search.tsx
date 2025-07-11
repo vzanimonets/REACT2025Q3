@@ -37,7 +37,7 @@ class Search extends Component<SearchProps> {
           placeholder="Search by name..."
           value={value}
           onChange={this.handleInput}
-          className="flex-1 min-w-[300px] text-xl py-3 bg-transparent border-none outline-none shadow-none focus:outline-none"
+          className="flex-1 min-w-[300px] text-xl py-3 bg-transparent border-none outline-none shadow-none focus:outline-none placeholder-gray-500"
           aria-label="Search input"
         />
         {value && (
