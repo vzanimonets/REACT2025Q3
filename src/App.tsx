@@ -42,7 +42,7 @@ class App extends Component<object, AppState> {
       <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none flex flex-col">
         <header className="flex flex-col items-center mb-6 mt-4">
           <h1 className="text-center text-4xl font-bold mb-2">
-            Star Wars Characters
+            Star Wars Characters Search
           </h1>
           <SearchContainer
             value={searchTerm}
