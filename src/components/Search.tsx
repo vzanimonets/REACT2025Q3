@@ -43,13 +43,13 @@ class Search extends Component<SearchProps> {
         {value && (
           <button
             type="button"
-            className="bg-transparent border-none outline-none cursor-pointer px-2 flex items-center h-10 mr-1 focus:outline-none hover:bg-gray-200 active:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-transparent border-none outline-none cursor-pointer px-4 py-2 rounded-md shadow flex items-center h-10 mr-1 focus:outline-none hover:bg-gray-200 active:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Clear search input"
             onClick={this.handleClear}
             disabled={!value}
           >
             <svg
-              className="w-5 h-5 text-gray-400 block"
+              className="w-5 h-5 text-gray-600 block"
               viewBox="0 0 24 24"
               focusable="false"
               aria-hidden="true"
@@ -60,12 +60,12 @@ class Search extends Component<SearchProps> {
         )}
         <button
           type="submit"
-          className="bg-transparent border-none outline-none cursor-pointer px-2 flex items-center h-10 focus:outline-none hover:bg-gray-200 active:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-transparent border-none outline-none cursor-pointer px-4 py-2 rounded-md shadow flex items-center h-10 focus:outline-none hover:bg-gray-200 active:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
           aria-label="Search"
           disabled={false}
         >
           <svg
-            className="w-6 h-6 text-gray-600 block"
+            className="w-5 h-5 text-gray-600 block"
             viewBox="0 0 24 24"
             focusable="false"
             aria-hidden="true"
