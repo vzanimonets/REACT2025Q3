@@ -2,11 +2,13 @@ import SearchContainer from './components/SearchContainer';
 import ResultsContainer from './components/ResultsContainer';
 import ErrorBoundary from './components/ErrorBoundary';
 import Results from './components/Results';
+import ErrorButton from './components/ErrorButton';
 import type { ReactNode } from 'react';
 import { Component } from 'react';
 
 interface AppState {
   searchTerm: string;
+  artificialError: Error | null;
 }
 
 class App extends Component<object, AppState> {
@@ -15,16 +17,27 @@ class App extends Component<object, AppState> {
     const savedTerm = localStorage.getItem('searchTerm') || '';
     this.state = {
       searchTerm: savedTerm,
+      artificialError: null,
     };
   }
 
   handleSearchInputChange = (value: string) => {
-    this.setState({ searchTerm: value });
+    this.setState({ searchTerm: value, artificialError: null });
     localStorage.setItem('searchTerm', value);
   };
 
+  handleThrowError = () => {
+    this.setState({
+      artificialError: new Error('Test error from ErrorButton'),
+    });
+  };
+
+  handleErrorBoundaryReset = () => {
+    this.setState({ artificialError: null });
+  };
+
   render(): ReactNode {
-    const { searchTerm } = this.state;
+    const { searchTerm, artificialError } = this.state;
     return (
       <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none flex flex-col">
         <header className="flex flex-col items-center mb-6 mt-4">
@@ -38,7 +51,7 @@ class App extends Component<object, AppState> {
         </header>
         <main className="flex-1 flex flex-col items-center">
           <ErrorBoundary
-            key={searchTerm}
+            key={searchTerm + (artificialError ? '-error' : '')}
             fallback={(error) => (
               <Results
                 people={[]}
@@ -47,8 +60,12 @@ class App extends Component<object, AppState> {
               />
             )}
           >
-            <ResultsContainer searchTerm={searchTerm} />
+            <ResultsContainer
+              searchTerm={searchTerm}
+              artificialError={artificialError}
+            />
           </ErrorBoundary>
+          <ErrorButton onThrowError={this.handleThrowError} />
         </main>
       </div>
     );

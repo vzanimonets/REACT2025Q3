@@ -2,7 +2,7 @@ import { Component } from 'react';
 import Results from './Results';
 import { fetchPeople } from '../api/swapi';
 import type { SwapiPerson } from '../api/swapi';
-import ErrorButton from './ErrorButton';
+// import ErrorButton from './ErrorButton'; // No longer needed
 
 interface ErrorObject {
   text: string;
@@ -11,13 +11,13 @@ interface ErrorObject {
 
 interface ResultsContainerProps {
   searchTerm: string;
+  artificialError?: Error | null;
 }
 
 interface ResultsContainerState {
   people: SwapiPerson[];
   loading: boolean;
   error: ErrorObject | null;
-  artificialError: Error | null;
 }
 
 class ResultsContainer extends Component<
@@ -30,7 +30,6 @@ class ResultsContainer extends Component<
       people: [],
       loading: false,
       error: null,
-      artificialError: null,
     };
   }
 
@@ -75,23 +74,15 @@ class ResultsContainer extends Component<
       });
   };
 
-  handleThrowError = () => {
-    this.setState({
-      artificialError: new Error('Test error from ErrorButton'),
-    });
-  };
-
   render() {
-    const { people, loading, error, artificialError } = this.state;
+    const { people, loading, error } = this.state;
+    const { artificialError } = this.props;
     if (artificialError) {
       throw artificialError;
     }
     return (
       <>
         <Results people={people} loading={loading} error={error} />
-        <div className="flex justify-end mt-4">
-          <ErrorButton onThrowError={this.handleThrowError} />
-        </div>
       </>
     );
   }

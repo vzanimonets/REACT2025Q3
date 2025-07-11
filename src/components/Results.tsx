@@ -18,7 +18,7 @@ function Results({ people, loading, error }: ResultsProps) {
     <div className="w-full h-full">
       <div className="w-full overflow-x-auto">
         <div className="min-w-[900px]">
-          <div className="max-h-96 overflow-y-auto">
+          <div className="max-h-124 overflow-y-auto">
             <ResultsHeader />
             <ResultsBody
               people={people}
