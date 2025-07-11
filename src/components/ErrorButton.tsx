@@ -1,7 +1,12 @@
 import { Component } from 'react';
-class ErrorButton extends Component {
+
+interface ErrorButtonProps {
+  onThrowError: () => void;
+}
+
+class ErrorButton extends Component<ErrorButtonProps> {
   handleClick = () => {
-    throw new Error('Test error from ErrorButton');
+    this.props.onThrowError();
   };
   render() {
     return (

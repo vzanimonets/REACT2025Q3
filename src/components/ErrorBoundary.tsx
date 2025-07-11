@@ -1,34 +1,31 @@
 import { Component } from 'react';
 import type { ReactNode } from 'react';
+
 type ErrorBoundaryProps = {
-  children: ReactNode;
+  children: (boundaryError: Error | null) => ReactNode;
 };
+
 type ErrorBoundaryState = {
   hasError: boolean;
+  error: Error | null;
 };
+
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null };
   }
   componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.error('ErrorBoundary caught an error', error, info);
-    this.setState({ hasError: true });
+    this.setState({ hasError: true, error });
   }
   componentDidUpdate(prevProps: ErrorBoundaryProps) {
     if (prevProps.children !== this.props.children && this.state.hasError) {
-      this.setState({ hasError: false });
+      this.setState({ hasError: false, error: null });
     }
   }
   render() {
-    if (this.state.hasError) {
-      return (
-        <div className="text-red-600 font-semibold p-4 bg-red-50 rounded">
-          Something went wrong.
-        </div>
-      );
-    }
-    return this.props.children;
+    return this.props.children(this.state.error);
   }
 }
 export default ErrorBoundary;
