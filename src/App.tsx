@@ -97,15 +97,17 @@ class App extends Component<object, AppState> {
       <ErrorBoundary>
         {(boundaryError) => (
           <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none flex flex-col">
-            <h1 className="text-center">Star Wars Characters</h1>
-            <header className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200 flex flex-col items-center">
+            <header className="flex flex-col items-center mb-6 mt-4">
+              <h1 className="text-center text-4xl font-bold mb-2">
+                Star Wars Characters
+              </h1>
               <Search
                 value={searchTerm}
                 onChange={this.handleSearchInputChange}
                 onSearch={this.handleSearch}
               />
             </header>
-            <main className="flex-1 bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200">
+            <main className="flex-1 flex flex-col items-center">
               <Results
                 people={people}
                 loading={loading}
@@ -118,7 +120,9 @@ class App extends Component<object, AppState> {
                 }
               />
             </main>
-            <ErrorButton onThrowError={this.handleThrowError} />
+            <div className="flex justify-end mt-4">
+              <ErrorButton onThrowError={this.handleThrowError} />
+            </div>
           </div>
         )}
       </ErrorBoundary>
