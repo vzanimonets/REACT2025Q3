@@ -3,21 +3,26 @@ import ResultsContainer from './components/ResultsContainer';
 import ErrorBoundary from './components/ErrorBoundary';
 import Results from './components/Results';
 import ErrorButton from './components/ErrorButton';
+import HighlightToggle from './components/HighlightToggle';
 import type { ReactNode } from 'react';
 import { Component } from 'react';
 
 interface AppState {
   searchTerm: string;
   artificialError: Error | null;
+  highlight: boolean;
 }
 
 class App extends Component<object, AppState> {
   constructor(props: object) {
     super(props);
     const savedTerm = localStorage.getItem('searchTerm') || '';
+    const savedHighlight =
+      localStorage.getItem('highlight') === 'false' ? false : true;
     this.state = {
       searchTerm: savedTerm,
       artificialError: null,
+      highlight: savedHighlight,
     };
   }
 
@@ -42,19 +47,30 @@ class App extends Component<object, AppState> {
     this.setState({ artificialError: null });
   };
 
+  handleHighlightToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ highlight: e.target.checked });
+    localStorage.setItem('highlight', String(e.target.checked));
+  };
+
   render(): ReactNode {
-    const { searchTerm, artificialError } = this.state;
+    const { searchTerm, artificialError, highlight } = this.state;
     return (
       <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none flex flex-col">
         <header className="flex flex-col items-center mb-6 mt-4">
           <h1 className="text-center text-4xl font-bold mb-2">
             Star Wars Characters Search
           </h1>
-          <SearchContainer
-            value={searchTerm}
-            onChange={this.handleSearchInputChange}
-            onSearch={this.handleSearch}
-          />
+          <div className="flex items-center gap-4">
+            <SearchContainer
+              value={searchTerm}
+              onChange={this.handleSearchInputChange}
+              onSearch={this.handleSearch}
+            />
+            <HighlightToggle
+              checked={highlight}
+              onChange={this.handleHighlightToggle}
+            />
+          </div>
         </header>
         <main className="flex-1 flex flex-col items-center">
           <ErrorBoundary
@@ -64,12 +80,15 @@ class App extends Component<object, AppState> {
                 people={[]}
                 loading={false}
                 error={{ text: error.message }}
+                searchTerm={searchTerm}
+                highlight={highlight}
               />
             )}
           >
             <ResultsContainer
               searchTerm={searchTerm}
               artificialError={artificialError}
+              highlight={highlight}
             />
           </ErrorBoundary>
           <ErrorButton onThrowError={this.handleThrowError} />

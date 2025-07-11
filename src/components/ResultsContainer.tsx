@@ -12,6 +12,7 @@ interface ErrorObject {
 interface ResultsContainerProps {
   searchTerm: string;
   artificialError?: Error | null;
+  highlight?: boolean;
 }
 
 interface ResultsContainerState {
@@ -76,13 +77,19 @@ class ResultsContainer extends Component<
 
   render() {
     const { people, loading, error } = this.state;
-    const { artificialError } = this.props;
+    const { artificialError, searchTerm, highlight } = this.props;
     if (artificialError) {
       throw artificialError;
     }
     return (
       <>
-        <Results people={people} loading={loading} error={error} />
+        <Results
+          people={people}
+          loading={loading}
+          error={error}
+          searchTerm={searchTerm}
+          highlight={highlight}
+        />
       </>
     );
   }

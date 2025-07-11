@@ -12,9 +12,17 @@ interface ResultsBodyProps {
   people: SwapiPerson[];
   loading?: boolean;
   error?: ErrorObject | null;
+  searchTerm?: string;
+  highlight?: boolean;
 }
 
-const ResultsBody = ({ people, loading = false, error }: ResultsBodyProps) => {
+const ResultsBody = ({
+  people,
+  loading = false,
+  error,
+  searchTerm,
+  highlight,
+}: ResultsBodyProps) => {
   if (loading)
     return (
       <div className="w-full h-80 overflow-y-auto flex items-start justify-center">
@@ -37,7 +45,12 @@ const ResultsBody = ({ people, loading = false, error }: ResultsBodyProps) => {
     <div className="w-full h-80 overflow-y-auto flex items-start justify-center">
       <div className="w-full">
         {people.map((person) => (
-          <Card key={person.url} person={person} />
+          <Card
+            key={person.url}
+            person={person}
+            searchTerm={searchTerm}
+            highlight={highlight}
+          />
         ))}
       </div>
     </div>
