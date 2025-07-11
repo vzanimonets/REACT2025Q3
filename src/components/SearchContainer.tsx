@@ -5,6 +5,7 @@ import { debounce } from '../utils/debounce';
 interface SearchContainerProps {
   value: string;
   onChange: (value: string) => void;
+  onSearch: (value: string) => void;
 }
 
 class SearchContainer extends Component<SearchContainerProps> {
@@ -18,8 +19,7 @@ class SearchContainer extends Component<SearchContainerProps> {
 
   handleSearch = () => {
     const trimmed = this.props.value.trim();
-    localStorage.setItem('searchTerm', trimmed);
-    this.props.onChange(trimmed);
+    this.props.onSearch(trimmed);
   };
 
   render() {

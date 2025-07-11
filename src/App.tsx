@@ -26,6 +26,12 @@ class App extends Component<object, AppState> {
     localStorage.setItem('searchTerm', value);
   };
 
+  handleSearch = (value: string) => {
+    const trimmed = value.trim();
+    this.setState({ searchTerm: trimmed, artificialError: null });
+    localStorage.setItem('searchTerm', trimmed);
+  };
+
   handleThrowError = () => {
     this.setState({
       artificialError: new Error('Test error from ErrorButton'),
@@ -47,6 +53,7 @@ class App extends Component<object, AppState> {
           <SearchContainer
             value={searchTerm}
             onChange={this.handleSearchInputChange}
+            onSearch={this.handleSearch}
           />
         </header>
         <main className="flex-1 flex flex-col items-center">
