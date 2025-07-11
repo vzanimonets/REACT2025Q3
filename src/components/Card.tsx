@@ -6,7 +6,7 @@ interface CardProps {
 
 function Card({ person }: CardProps) {
   return (
-    <div className="grid grid-cols-10 border-b border-gray-100 items-center py-3 hover:bg-gray-200 transition-colors text-xs md:text-base">
+    <div className="grid grid-cols-10 border-b border-gray-100 items-center py-3 hover:bg-gray-200 transition-colors text-sm md:text-base">
       <div className="truncate pl-4 text-left">{person.name}</div>
       <div className="truncate pl-4 text-left">{person.height}</div>
       <div className="truncate pl-4 text-left">{person.mass}</div>

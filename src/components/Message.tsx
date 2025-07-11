@@ -10,7 +10,7 @@ const Message = ({
   <div
     className={`w-full text-center py-8 ${
       type === 'error' ? 'text-red-600' : 'text-gray-600'
-    }`}
+    } text-base`}
   >
     {text}
     {errorCode && (
