@@ -53,7 +53,6 @@ class App extends Component<object, AppState> {
     const { searchTerm } = this.state;
     const trimmed = searchTerm.trim();
     localStorage.setItem('searchTerm', trimmed);
-    // Сбросить искусственную ошибку перед новым поиском
     this.setState({ artificialError: null }, () => {
       this.fetchPeople(trimmed);
     });
@@ -67,7 +66,7 @@ class App extends Component<object, AppState> {
           people: data.results,
           loading: false,
           artificialError: null,
-        }); // сбросить ошибку при успешном ответе
+        });
       })
       .catch((err: unknown) => {
         let errorObj: ErrorObject;
