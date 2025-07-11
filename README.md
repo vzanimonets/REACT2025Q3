@@ -1,69 +1,119 @@
-# React + TypeScript + Vite
+# Star Wars Characters Search (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React application built with TypeScript and Vite. It allows users to search for Star Wars characters using the [SWAPI](https://swapi.py4e.com/api/people/) API. The app demonstrates modern React development practices, including class components, error boundaries, and integration with Tailwind CSS for styling.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Search Star Wars Characters:** Enter a search term to find characters from the Star Wars universe.
+- **Error Handling:** Robust error boundaries to gracefully handle API and UI errors.
+- **Responsive UI:** Styled with Tailwind CSS for a clean, modern look.
+- **Debounced Search:** Reduces unnecessary API calls while typing.
+- **Class Components:** Built using React class components for educational purposes.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+1. **Clone the repository:**
+   ```sh
+   git clone git@github.com:vzanimonets/REACT2025Q3.git
+   cd REACT2025Q3
+   git checkout class-component
+   ```
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+
+### Running the App
+
+- **Development mode (with hot reload):**
+
+  ```sh
+  npm run dev
+  ```
+
+  Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+- **Production build:**
+
+  ```sh
+  npm run build
+  ```
+
+  The output will be in the `dist/` folder.
+
+- **Preview production build locally:**
+  ```sh
+  npm run preview
+  ```
+
+### Linting & Formatting
+
+- **Lint the code:**
+  ```sh
+  npm run lint
+  ```
+- **Auto-format code with Prettier:**
+  ```sh
+  npm run format:fix
+  ```
+
+### Husky (Pre-commit Hook)
+
+- Linting is enforced before each commit using Husky.
+
+## Project Structure
+
+```
+REACT2025Q3/
+├── public/                # Static assets
+├── src/
+│   ├── api/               # API utilities (swapi.ts)
+│   ├── assets/            # Images and static assets
+│   ├── components/        # React components
+│   ├── utils/             # Utility functions
+│   ├── App.tsx            # Main App component
+│   ├── main.tsx           # Entry point
+│   └── index.css          # Tailwind CSS styles
+├── package.json           # Project metadata and scripts
+├── tailwind.config.ts     # Tailwind CSS configuration
+├── postcss.config.ts      # PostCSS configuration
+├── tsconfig.json         # TypeScript configuration
+└── vite.config.ts         # Vite configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Available Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+- `npm run dev` — Start the development server
+- `npm run build` — Build for production
+- `npm run preview` — Preview the production build
+- `npm run lint` — Run ESLint
+- `npm run format:fix` — Format code with Prettier
+- `npm run prepare` — Install Husky hooks
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+## Technologies Used
+
+- [React](https://react.dev/) 19+
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/)
+- [Husky](https://typicode.github.io/husky/)
+
+## Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](LICENSE)
+
+---
+
+> This project is part of the [RS School](https://rs.school/) React 2025Q3 course.
