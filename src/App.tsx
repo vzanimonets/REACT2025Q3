@@ -1,5 +1,5 @@
-import Search from './components/Search';
-import Results from './components/Results';
+import SearchContainer from './components/SearchContainer';
+import ResultsContainer from './components/ResultsContainer';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorButton from './components/ErrorButton';
 import { fetchPeople } from './api/swapi';
@@ -20,78 +20,8 @@ interface AppState {
   artificialError: Error | null;
 }
 
-class App extends Component<object, AppState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      searchTerm: '',
-      people: [],
-      loading: false,
-      error: null,
-      artificialError: null,
-    };
-  }
-
-  handleThrowError = () => {
-    this.setState({
-      artificialError: new Error('Test error from ErrorButton'),
-    });
-  };
-
-  componentDidMount() {
-    const savedTerm = localStorage.getItem('searchTerm') || '';
-    this.setState({ searchTerm: savedTerm }, () => {
-      this.fetchPeople(savedTerm);
-    });
-  }
-
-  handleSearchInputChange = (value: string) => {
-    this.setState({ searchTerm: value });
-  };
-
-  handleSearch = () => {
-    const { searchTerm } = this.state;
-    const trimmed = searchTerm.trim();
-    localStorage.setItem('searchTerm', trimmed);
-    this.setState({ artificialError: null }, () => {
-      this.fetchPeople(trimmed);
-    });
-  };
-
-  fetchPeople = (searchTerm: string) => {
-    this.setState({ loading: true, error: null });
-    fetchPeople({ search: searchTerm })
-      .then((data) => {
-        this.setState({
-          people: data.results,
-          loading: false,
-          artificialError: null,
-        });
-      })
-      .catch((err: unknown) => {
-        let errorObj: ErrorObject;
-        if (
-          err instanceof Error &&
-          err.message &&
-          err.message.includes('SWAPI request failed:')
-        ) {
-          const match = err.message.match(/(\d{3})/);
-          const code = match ? parseInt(match[1], 10) : undefined;
-          errorObj = { text: err.message, errorCode: code };
-        } else {
-          errorObj = {
-            text:
-              err instanceof Error
-                ? err.message || 'Unknown error'
-                : 'Unknown error',
-          };
-        }
-        this.setState({ error: errorObj, loading: false, people: [] });
-      });
-  };
-
+class App extends Component<object> {
   render(): ReactNode {
-    const { people, loading, error, searchTerm, artificialError } = this.state;
     return (
       <ErrorBoundary>
         {(boundaryError) => (
@@ -100,27 +30,13 @@ class App extends Component<object, AppState> {
               <h1 className="text-center text-4xl font-bold mb-2">
                 Star Wars Characters
               </h1>
-              <Search
-                value={searchTerm}
-                onChange={this.handleSearchInputChange}
-                onSearch={this.handleSearch}
-              />
+              <SearchContainer />
             </header>
             <main className="flex-1 flex flex-col items-center">
-              <Results
-                people={people}
-                loading={loading}
-                error={
-                  artificialError
-                    ? { text: artificialError.message }
-                    : boundaryError
-                      ? { text: boundaryError.message }
-                      : error
-                }
-              />
+              <ResultsContainer boundaryError={boundaryError} />
             </main>
             <div className="flex justify-end mt-4">
-              <ErrorButton onThrowError={this.handleThrowError} />
+              <ErrorButton onThrowError={() => { throw new Error('Test error from ErrorButton'); }} />
             </div>
           </div>
         )}
