@@ -96,7 +96,7 @@ class App extends Component<object, AppState> {
     return (
       <ErrorBoundary>
         {(boundaryError) => (
-          <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none">
+          <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none flex flex-col">
             <h1 className="text-center">Star Wars Characters</h1>
             <header className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200 flex flex-col items-center">
               <Search
@@ -105,7 +105,7 @@ class App extends Component<object, AppState> {
                 onSearch={this.handleSearch}
               />
             </header>
-            <main className="bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200">
+            <main className="flex-1 bg-gray-50 shadow px-2 py-3 mb-2 border-b border-gray-200">
               <Results
                 people={people}
                 loading={loading}
@@ -118,9 +118,7 @@ class App extends Component<object, AppState> {
                 }
               />
             </main>
-            <div className="flex justify-end mt-2">
-              <ErrorButton onThrowError={this.handleThrowError} />
-            </div>
+            <ErrorButton onThrowError={this.handleThrowError} />
           </div>
         )}
       </ErrorBoundary>
