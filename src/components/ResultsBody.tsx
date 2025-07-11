@@ -18,7 +18,9 @@ const ResultsBody = ({ people, loading = false, error }: ResultsBodyProps) => {
   if (loading) return <Spinner />;
   if (error) {
     return (
-      <Message text={error.text} type="error" errorCode={error.errorCode} />
+      <div className="w-full h-80 flex items-center justify-center">
+        <Message text={error.text} type="error" errorCode={error.errorCode} />
+      </div>
     );
   }
   if (people.length === 0) return <Message text="No results found." />;
