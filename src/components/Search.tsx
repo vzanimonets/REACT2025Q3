@@ -48,8 +48,9 @@ class Search extends React.Component<SearchProps> {
         {this.props.value && (
           <button
             type="button"
-            className="bg-transparent border-none outline-none cursor-pointer px-4 py-2 rounded-md shadow flex items-center h-10 mr-1 focus:outline-none hover:bg-gray-200 active:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-transparent border-none outline-none cursor-pointer px-2 py-2 rounded-md flex items-center h-10 focus:outline-none active:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Clear search input"
+            title="Clear search"
             onClick={this.handleClear}
             disabled={!this.props.value}
           >
@@ -65,8 +66,9 @@ class Search extends React.Component<SearchProps> {
         )}
         <button
           type="submit"
-          className="bg-transparent border-none outline-none cursor-pointer px-4 py-2 rounded-md shadow flex items-center h-10 focus:outline-none hover:bg-gray-200 active:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-transparent border-none outline-none cursor-pointer px-2 py-2 rounded-md flex items-center h-10 -ml-1 focus:outline-none active:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
           aria-label="Search"
+          title="Search"
         >
           <svg
             className="w-5 h-5 text-gray-600 block"
