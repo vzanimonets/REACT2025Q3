@@ -1,6 +1,6 @@
 import Message from './Message';
-import Spinner from './Spinner';
 import Card from './Card';
+import SkeletonRow from './SkeletonRow';
 import type { SwapiPerson } from '../api/swapi';
 
 interface ErrorObject {
@@ -15,7 +15,16 @@ interface ResultsBodyProps {
 }
 
 const ResultsBody = ({ people, loading = false, error }: ResultsBodyProps) => {
-  if (loading) return <Spinner />;
+  if (loading)
+    return (
+      <div className="w-full h-80 overflow-y-auto flex items-start justify-center">
+        <div className="w-full">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <SkeletonRow key={i} />
+          ))}
+        </div>
+      </div>
+    );
   if (error) {
     return (
       <div className="w-full h-80 flex items-center justify-center">
