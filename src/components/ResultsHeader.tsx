@@ -1,5 +1,5 @@
 const ResultsHeader = () => (
-  <div className="grid grid-cols-10 font-bold border-b border-gray-300 py-3 bg-gray-50 text-sm md:text-base">
+  <div className="grid grid-cols-10 font-bold border-b border-gray-300 py-3 bg-gray-50 text-sm md:text-base sticky top-0 z-10">
     <div className="whitespace-nowrap truncate pl-4 text-left">Name</div>
     <div className="whitespace-nowrap truncate pl-4 text-left">Height</div>
     <div className="whitespace-nowrap truncate pl-4 text-left">Mass</div>

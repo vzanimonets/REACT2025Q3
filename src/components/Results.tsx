@@ -16,7 +16,7 @@ interface ResultsProps {
 function Results({ people, loading, error }: ResultsProps) {
   return (
     <div className="w-full h-full">
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto sm:overflow-x-visible">
         <div className="min-w-max">
           <ResultsHeader />
           <ResultsBody
