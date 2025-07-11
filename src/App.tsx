@@ -1,4 +1,4 @@
-import SearchSection from './components/SearchSection';
+import Search from './components/Search';
 import Results from './components/Results';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorButton from './components/ErrorButton';
@@ -45,9 +45,16 @@ class App extends Component<object, AppState> {
     });
   }
 
-  handleSearch = (searchTerm: string) => {
-    this.setState({ searchTerm, artificialError: null }, () => {
-      this.fetchPeople(searchTerm);
+  handleSearchInputChange = (value: string) => {
+    this.setState({ searchTerm: value });
+  };
+
+  handleSearch = () => {
+    const { searchTerm } = this.state;
+    const trimmed = searchTerm.trim();
+    localStorage.setItem('searchTerm', trimmed);
+    this.setState({ artificialError: null }, () => {
+      this.fetchPeople(trimmed);
     });
   };
 
@@ -93,8 +100,9 @@ class App extends Component<object, AppState> {
               <h1 className="text-center text-4xl font-bold mb-2">
                 Star Wars Characters
               </h1>
-              <SearchSection
-                initialValue={searchTerm}
+              <Search
+                value={searchTerm}
+                onChange={this.handleSearchInputChange}
                 onSearch={this.handleSearch}
               />
             </header>
