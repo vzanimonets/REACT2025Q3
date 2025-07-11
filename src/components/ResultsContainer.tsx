@@ -9,44 +9,38 @@ interface ErrorObject {
   errorCode?: number;
 }
 
+interface ResultsContainerProps {
+  searchTerm: string;
+}
+
 interface ResultsContainerState {
   people: SwapiPerson[];
   loading: boolean;
   error: ErrorObject | null;
-  searchTerm: string;
   artificialError: Error | null;
 }
 
-class ResultsContainer extends Component<object, ResultsContainerState> {
-  private searchTermInterval: number | undefined;
-
-  constructor(props: object) {
+class ResultsContainer extends Component<
+  ResultsContainerProps,
+  ResultsContainerState
+> {
+  constructor(props: ResultsContainerProps) {
     super(props);
-    const savedTerm = localStorage.getItem('searchTerm') || '';
     this.state = {
       people: [],
       loading: false,
       error: null,
-      searchTerm: savedTerm,
       artificialError: null,
     };
   }
 
   componentDidMount() {
-    this.fetchPeople(this.state.searchTerm);
-    this.searchTermInterval = window.setInterval(() => {
-      const savedTerm = localStorage.getItem('searchTerm') || '';
-      if (savedTerm !== this.state.searchTerm) {
-        this.setState({ searchTerm: savedTerm }, () => {
-          this.fetchPeople(savedTerm);
-        });
-      }
-    }, 500);
+    this.fetchPeople(this.props.searchTerm);
   }
 
-  componentWillUnmount() {
-    if (this.searchTermInterval) {
-      clearInterval(this.searchTermInterval);
+  componentDidUpdate(prevProps: ResultsContainerProps) {
+    if (prevProps.searchTerm !== this.props.searchTerm) {
+      this.fetchPeople(this.props.searchTerm);
     }
   }
 

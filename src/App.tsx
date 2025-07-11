@@ -5,18 +5,40 @@ import Results from './components/Results';
 import type { ReactNode } from 'react';
 import { Component } from 'react';
 
-class App extends Component<object> {
+interface AppState {
+  searchTerm: string;
+}
+
+class App extends Component<object, AppState> {
+  constructor(props: object) {
+    super(props);
+    const savedTerm = localStorage.getItem('searchTerm') || '';
+    this.state = {
+      searchTerm: savedTerm,
+    };
+  }
+
+  handleSearchInputChange = (value: string) => {
+    this.setState({ searchTerm: value });
+    localStorage.setItem('searchTerm', value);
+  };
+
   render(): ReactNode {
+    const { searchTerm } = this.state;
     return (
       <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none flex flex-col">
         <header className="flex flex-col items-center mb-6 mt-4">
           <h1 className="text-center text-4xl font-bold mb-2">
             Star Wars Characters
           </h1>
-          <SearchContainer />
+          <SearchContainer
+            value={searchTerm}
+            onChange={this.handleSearchInputChange}
+          />
         </header>
         <main className="flex-1 flex flex-col items-center">
           <ErrorBoundary
+            key={searchTerm}
             fallback={(error) => (
               <Results
                 people={[]}
@@ -25,7 +47,7 @@ class App extends Component<object> {
               />
             )}
           >
-            <ResultsContainer />
+            <ResultsContainer searchTerm={searchTerm} />
           </ErrorBoundary>
         </main>
       </div>

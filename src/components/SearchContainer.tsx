@@ -1,33 +1,26 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Search from './Search';
 
-interface SearchContainerState {
-  searchTerm: string;
+interface SearchContainerProps {
+  value: string;
+  onChange: (value: string) => void;
 }
 
-class SearchContainer extends Component<object, SearchContainerState> {
-  constructor(props: object) {
-    super(props);
-    const savedTerm = localStorage.getItem('searchTerm') || '';
-    this.state = {
-      searchTerm: savedTerm,
-    };
-  }
-
+class SearchContainer extends Component<SearchContainerProps> {
   handleInputChange = (value: string) => {
-    this.setState({ searchTerm: value });
+    this.props.onChange(value);
   };
 
   handleSearch = () => {
-    const trimmed = this.state.searchTerm.trim();
+    const trimmed = this.props.value.trim();
     localStorage.setItem('searchTerm', trimmed);
-    // Optionally, you can emit an event or call a callback here to notify parent
+    this.props.onChange(trimmed);
   };
 
   render() {
     return (
       <Search
-        value={this.state.searchTerm}
+        value={this.props.value}
         onChange={this.handleInputChange}
         onSearch={this.handleSearch}
       />
