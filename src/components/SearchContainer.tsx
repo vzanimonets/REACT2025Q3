@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import Search from './Search';
+import { debounce } from '../utils/debounce';
 
 interface SearchContainerProps {
   value: string;
@@ -7,8 +8,12 @@ interface SearchContainerProps {
 }
 
 class SearchContainer extends Component<SearchContainerProps> {
+  debouncedOnChange = debounce((value: unknown) => {
+    this.props.onChange(value as string);
+  }, 100);
+
   handleInputChange = (value: string) => {
-    this.props.onChange(value);
+    this.debouncedOnChange(value);
   };
 
   handleSearch = () => {
