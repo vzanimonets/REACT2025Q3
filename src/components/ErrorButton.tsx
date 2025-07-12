@@ -8,6 +8,7 @@ class ErrorButton extends Component<ErrorButtonProps> {
   handleClick = () => {
     this.props.onThrowError();
   };
+
   render() {
     return (
       <button
@@ -19,4 +20,5 @@ class ErrorButton extends Component<ErrorButtonProps> {
     );
   }
 }
+
 export default ErrorButton;

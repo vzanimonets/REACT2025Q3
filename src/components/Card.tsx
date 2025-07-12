@@ -1,4 +1,5 @@
 import type { SwapiPerson } from '../api/swapi';
+import TableCell from './TableCell';
 
 interface CardProps {
   person: SwapiPerson;
@@ -26,20 +27,18 @@ function highlightText(text: string, highlight: string | undefined) {
 function Card({ person, searchTerm, highlight }: CardProps) {
   return (
     <div className="grid grid-cols-10 border-b border-gray-200 items-center py-3 hover:bg-gray-200 transition-colors text-sm md:text-base">
-      <div className="truncate pl-4 text-left">
+      <TableCell>
         {highlight ? highlightText(person.name, searchTerm) : person.name}
-      </div>
-      <div className="truncate pl-4 text-left">{person.height}</div>
-      <div className="truncate pl-4 text-left">{person.mass}</div>
-      <div className="truncate pl-4 text-left">{person.hair_color}</div>
-      <div className="truncate pl-4 text-left">{person.skin_color}</div>
-      <div className="truncate pl-4 text-left">{person.eye_color}</div>
-      <div className="truncate pl-4 text-left">{person.birth_year}</div>
-      <div className="truncate pl-4 text-left">{person.gender}</div>
-      <div className="truncate pl-4 text-left">{person.films.length}</div>
-      <div className="truncate pl-4 text-left">
-        {person.vehicles.length + person.starships.length}
-      </div>
+      </TableCell>
+      <TableCell>{person.height}</TableCell>
+      <TableCell>{person.mass}</TableCell>
+      <TableCell>{person.hair_color}</TableCell>
+      <TableCell>{person.skin_color}</TableCell>
+      <TableCell>{person.eye_color}</TableCell>
+      <TableCell>{person.birth_year}</TableCell>
+      <TableCell>{person.gender}</TableCell>
+      <TableCell>{person.films.length}</TableCell>
+      <TableCell>{person.vehicles.length + person.starships.length}</TableCell>
     </div>
   );
 }

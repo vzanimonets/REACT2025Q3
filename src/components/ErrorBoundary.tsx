@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import type { ReactNode } from 'react';
+import { CSS_CLASSES } from '../utils/constants';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -16,18 +17,21 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     super(props);
     this.state = { hasError: false, error: null };
   }
+
   componentDidCatch(error: Error) {
-    // Log error to console as required
     console.error('ErrorBoundary caught an error:', error);
     this.setState({ hasError: true, error });
   }
+
   render() {
     if (this.state.hasError && this.state.error) {
       if (this.props.fallback) {
         return this.props.fallback(this.state.error);
       }
       return (
-        <div className="w-full h-80 flex items-center justify-center text-red-600 text-xl font-bold">
+        <div
+          className={`${CSS_CLASSES.ERROR_CONTAINER} text-red-600 text-xl font-bold`}
+        >
           Something went wrong: {this.state.error.message}
         </div>
       );
@@ -35,4 +39,5 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     return this.props.children;
   }
 }
+
 export default ErrorBoundary;

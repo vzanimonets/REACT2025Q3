@@ -2,12 +2,8 @@ import { Component } from 'react';
 import Results from './Results';
 import { fetchPeople } from '../api/swapi';
 import type { SwapiPerson } from '../api/swapi';
-// import ErrorButton from './ErrorButton'; // No longer needed
-
-interface ErrorObject {
-  text: string;
-  errorCode?: number;
-}
+import type { ErrorObject } from '../types';
+import { createErrorObject } from '../utils/errorHandler';
 
 interface ResultsContainerProps {
   searchTerm: string;
@@ -54,23 +50,7 @@ class ResultsContainer extends Component<
         });
       })
       .catch((err: unknown) => {
-        let errorObj: ErrorObject;
-        if (
-          err instanceof Error &&
-          err.message &&
-          err.message.includes('SWAPI request failed:')
-        ) {
-          const match = err.message.match(/(\d{3})/);
-          const code = match ? parseInt(match[1], 10) : undefined;
-          errorObj = { text: err.message, errorCode: code };
-        } else {
-          errorObj = {
-            text:
-              err instanceof Error
-                ? err.message || 'Unknown error'
-                : 'Unknown error',
-          };
-        }
+        const errorObj = createErrorObject(err);
         this.setState({ error: errorObj, loading: false, people: [] });
       });
   };
@@ -82,15 +62,13 @@ class ResultsContainer extends Component<
       throw artificialError;
     }
     return (
-      <>
-        <Results
-          people={people}
-          loading={loading}
-          error={error}
-          searchTerm={searchTerm}
-          highlight={highlight}
-        />
-      </>
+      <Results
+        people={people}
+        loading={loading}
+        error={error}
+        searchTerm={searchTerm}
+        highlight={highlight}
+      />
     );
   }
 }

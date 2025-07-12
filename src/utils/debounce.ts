@@ -1,4 +1,3 @@
-// Debounce utility for class components (no hooks)
 export function debounce<T extends (...args: unknown[]) => void>(
   fn: T,
   delay: number

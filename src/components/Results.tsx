@@ -1,11 +1,7 @@
 import type { SwapiPerson } from '../api/swapi';
+import type { ErrorObject } from '../types';
 import ResultsBody from './ResultsBody';
 import ResultsHeader from './ResultsHeader';
-
-interface ErrorObject {
-  text: string;
-  errorCode?: number;
-}
 
 interface ResultsProps {
   people: SwapiPerson[];

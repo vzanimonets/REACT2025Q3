@@ -1,11 +1,11 @@
+import { Component, type ReactNode } from 'react';
 import SearchContainer from './components/SearchContainer';
 import ResultsContainer from './components/ResultsContainer';
 import ErrorBoundary from './components/ErrorBoundary';
 import Results from './components/Results';
 import ErrorButton from './components/ErrorButton';
 import HighlightToggle from './components/HighlightToggle';
-import type { ReactNode } from 'react';
-import { Component } from 'react';
+import { ERROR_MESSAGES } from './utils/constants';
 
 interface AppState {
   searchTerm: string;
@@ -17,8 +17,7 @@ class App extends Component<object, AppState> {
   constructor(props: object) {
     super(props);
     const savedTerm = localStorage.getItem('searchTerm') || '';
-    const savedHighlight =
-      localStorage.getItem('highlight') === 'false' ? false : true;
+    const savedHighlight = localStorage.getItem('highlight') !== 'false';
     this.state = {
       searchTerm: savedTerm,
       artificialError: null,
@@ -39,7 +38,7 @@ class App extends Component<object, AppState> {
 
   handleThrowError = () => {
     this.setState({
-      artificialError: new Error('Test error from ErrorButton'),
+      artificialError: new Error(ERROR_MESSAGES.TEST_ERROR),
     });
   };
 
