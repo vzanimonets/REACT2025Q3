@@ -13,15 +13,16 @@ function highlightText(text: string, highlight: string | undefined) {
     `(${highlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
     'ig'
   );
-  return text.split(regex).map((part, i) =>
-    regex.test(part) ? (
+  return text.split(regex).map((part, i) => {
+    const isMatch = highlight.toLowerCase() === part.toLowerCase();
+    return isMatch ? (
       <mark key={i} className="bg-yellow-200 text-black px-0.5 rounded">
         {part}
       </mark>
     ) : (
       part
-    )
-  );
+    );
+  });
 }
 
 function Card({ person, searchTerm, highlight }: CardProps) {
