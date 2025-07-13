@@ -28,7 +28,7 @@ class Search extends React.Component<SearchProps> {
   render() {
     return (
       <form
-        className="flex items-center bg-white rounded-full shadow-md px-5 py-1 w-auto max-w-2xl mx-auto my-8 border border-gray-200"
+        className="flex items-center bg-white dark:bg-gray-900 rounded-full shadow-md px-5 py-1 w-auto max-w-2xl mx-auto my-8 border border-gray-200 dark:border-gray-700"
         onSubmit={this.handleSubmit}
         role="search"
       >

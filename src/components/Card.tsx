@@ -27,7 +27,7 @@ function highlightText(text: string, highlight: string | undefined) {
 
 function Card({ person, searchTerm, highlight }: CardProps) {
   return (
-    <div className="grid grid-cols-10 border-b border-gray-200 items-center py-3 hover:bg-gray-200 transition-colors text-sm md:text-base">
+    <div className="grid grid-cols-10 border-b border-gray-200 dark:border-gray-700 items-center py-3 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors text-sm md:text-base">
       <TableCell>
         {highlight ? highlightText(person.name, searchTerm) : person.name}
       </TableCell>

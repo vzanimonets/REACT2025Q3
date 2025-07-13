@@ -54,8 +54,8 @@ class App extends Component<object, AppState> {
   render(): ReactNode {
     const { searchTerm, artificialError, highlight } = this.state;
     return (
-      <div className="w-full min-h-screen p-2 bg-white rounded-none shadow-none flex flex-col">
-        <header className="flex flex-col items-center mb-6 mt-4">
+      <div className="w-full min-h-screen p-2 bg-white dark:bg-gray-900 rounded-none shadow-none flex flex-col">
+        <header className="flex flex-col items-center mb-6 mt-4 text-black dark:text-white">
           <h1 className="text-center text-4xl font-bold mb-2">
             Star Wars Characters Search
           </h1>
