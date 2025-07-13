@@ -6,24 +6,40 @@ interface SearchProps {
   onSearch: () => void;
 }
 
-class Search extends React.Component<SearchProps> {
+class Search extends React.Component<SearchProps, { localValue: string }> {
   inputRef = createRef<HTMLInputElement>();
+  state = { localValue: this.props.value };
 
   handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.props.onChange(e.target.value);
+    const value = e.target.value;
+    this.setState({ localValue: value });
+    if (value.length > 3 || value.length === 0) {
+      this.props.onChange(value);
+    }
   };
 
   handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const value = this.state.localValue;
+    if (value !== this.props.value) {
+      this.props.onChange(value);
+    }
     this.props.onSearch();
   };
 
   handleClear = () => {
+    this.setState({ localValue: '' });
     this.props.onChange('');
     if (this.inputRef.current) {
       this.inputRef.current.focus();
     }
   };
+
+  componentDidUpdate(prevProps: SearchProps) {
+    if (prevProps.value !== this.props.value) {
+      this.setState({ localValue: this.props.value });
+    }
+  }
 
   render() {
     return (
@@ -41,18 +57,18 @@ class Search extends React.Component<SearchProps> {
           placeholder="Search by name..."
           ref={this.inputRef}
           onChange={this.handleInput}
-          value={this.props.value}
+          value={this.state.localValue}
           className="flex-1 min-w-[300px] text-xl py-3 bg-transparent border-none outline-none shadow-none focus:outline-none placeholder-gray-500"
           aria-label="Search input"
         />
-        {this.props.value && (
+        {this.state.localValue && (
           <button
             type="button"
             className="bg-transparent border-none outline-none cursor-pointer px-2 py-2 rounded-md flex items-center h-10 focus:outline-none active:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Clear search input"
             title="Clear search"
             onClick={this.handleClear}
-            disabled={!this.props.value}
+            disabled={!this.state.localValue}
           >
             <svg
               className="w-5 h-5 text-gray-600 block"
