@@ -59,7 +59,7 @@ class App extends Component<object, AppState> {
           <h1 className="text-center text-4xl font-bold mb-2">
             Star Wars Characters Search
           </h1>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 w-full max-w-md">
             <SearchContainer
               value={searchTerm}
               onChange={this.handleSearchInputChange}
