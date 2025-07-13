@@ -6,6 +6,7 @@ interface ErrorButtonProps {
 
 class ErrorButton extends Component<ErrorButtonProps> {
   handleClick = () => {
+    throw new Error('ErrorButton: Искусственная ошибка!');
     this.props.onThrowError();
   };
 
