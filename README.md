@@ -64,6 +64,43 @@ This project is a React application built with TypeScript and Vite. It allows us
   npm run format:fix
   ```
 
+### Testing
+
+- **Run all tests:**
+  ```sh
+  npm test
+  ```
+  or
+  ```sh
+  npm run test
+  ```
+- **Run tests in watch mode:**
+  ```sh
+  npm run test:watch
+  ```
+- **View test coverage report:**
+  ```sh
+  npm run test:coverage
+  ```
+  The coverage report will be available in the `coverage/` directory.
+
+#### Adding New Tests
+
+- Place test files next to the files they test, using the `.test.ts` or `.test.tsx` suffix (e.g., `Component.test.tsx`).
+- Use [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for writing tests.
+- Prefer `user-event` over `fireEvent` for simulating user interactions.
+- Test public component behavior and user scenarios, not internal implementation details.
+- Use descriptive test names and group related tests with `describe` blocks.
+- Mock API calls and side effects as needed (e.g., with `jest.mock`).
+
+#### Testing Standards
+
+- Strive for at least 90% code coverage (statements, branches, functions, lines).
+- Cover edge cases, error states, and user interactions.
+- Ensure tests are deterministic and do not depend on external services.
+- Keep tests fast and isolated.
+- Use `data-testid` attributes for selecting elements when necessary, but prefer accessible queries (e.g., by role, label, text).
+
 ### Husky (Pre-commit Hook)
 
 - Linting is enforced before each commit using Husky.
