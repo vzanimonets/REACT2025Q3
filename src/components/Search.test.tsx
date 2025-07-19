@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Search from './Search';
@@ -20,7 +21,6 @@ describe('Search', () => {
     expect(
       screen.queryByRole('button', { name: /clear search input/i })
     ).not.toBeInTheDocument();
-    // Show clear button
     render(<Search value="Luke" onChange={() => {}} onSearch={() => {}} />);
     expect(
       screen.getByRole('button', { name: /clear search input/i })
@@ -87,5 +87,13 @@ describe('Search', () => {
     expect(
       screen.getByRole('button', { name: /search$/i })
     ).toBeInTheDocument();
+  });
+
+  it('trims input before calling onSearch', async () => {
+    const onChange = jest.fn();
+    const onSearch = jest.fn();
+    render(<Search value="  Luke  " onChange={onChange} onSearch={onSearch} />);
+    fireEvent.submit(screen.getByRole('search'));
+    expect(onSearch).toHaveBeenCalled();
   });
 });
