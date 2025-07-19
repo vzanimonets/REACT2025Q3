@@ -50,15 +50,12 @@ describe('ResultsBody', () => {
     expect(screen.getByText('Leia Organa')).toBeInTheDocument();
   });
 
-  // Edge-case: person with empty name
   it('renders person with empty name', () => {
     const people = [{ ...mockPerson, name: '' }];
     render(<ResultsBody people={people} loading={false} error={null} />);
-    // Should render an empty cell or fallback (no error thrown)
     expect(screen.getByTestId('person-row')).toBeInTheDocument();
   });
 
-  // Edge-case: duplicate names
   it('renders people with duplicate names', () => {
     const people = [
       { ...mockPerson, name: 'Luke Skywalker', url: '1' },
