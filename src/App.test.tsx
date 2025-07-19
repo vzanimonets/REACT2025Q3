@@ -13,6 +13,10 @@ beforeEach(() => {
   jest.clearAllMocks();
   Storage.prototype.getItem = jest.fn();
   Storage.prototype.setItem = jest.fn();
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+});
+afterEach(() => {
+  (console.error as jest.Mock).mockRestore();
 });
 
 describe('App', () => {
@@ -35,7 +39,9 @@ describe('App', () => {
     const checkbox = screen.getByLabelText('Highlight search term');
     expect(checkbox).toBeInTheDocument();
     expect(checkbox).toBeChecked();
-    fireEvent.click(checkbox);
+    act(() => {
+      fireEvent.click(checkbox);
+    });
     expect(Storage.prototype.setItem).toHaveBeenCalledWith(
       'highlight',
       'false'
@@ -45,8 +51,8 @@ describe('App', () => {
   it('calls setItem on search input change (debounced)', async () => {
     render(<App />);
     const input = screen.getByRole('textbox');
-    fireEvent.change(input, { target: { value: 'Luke' } });
     act(() => {
+      fireEvent.change(input, { target: { value: 'Luke' } });
       jest.runAllTimers();
     });
     await waitFor(() => {
@@ -61,8 +67,10 @@ describe('App', () => {
     jest.useRealTimers();
     render(<App />);
     const input = screen.getByRole('textbox');
-    fireEvent.change(input, { target: { value: 'Leia ' } });
-    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    act(() => {
+      fireEvent.change(input, { target: { value: 'Leia ' } });
+      fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+    });
     await waitFor(() => {
       expect(Storage.prototype.setItem).toHaveBeenCalledWith(
         'searchTerm',
@@ -74,7 +82,9 @@ describe('App', () => {
   it('renders ErrorButton and triggers artificial error', async () => {
     render(<App />);
     const button = screen.getByRole('button', { name: /throw error/i });
-    fireEvent.click(button);
+    await act(async () => {
+      fireEvent.click(button);
+    });
     await waitFor(() => {
       expect(screen.getByText(/test error/i)).toBeInTheDocument();
     });
