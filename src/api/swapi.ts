@@ -8,7 +8,7 @@ export async function fetchPeople({
 }: {
   search?: string;
   page?: number;
-}): Promise<SwapiPeopleResponse> {
+}) {
   const params = new URLSearchParams();
   if (search.trim()) params.append('search', search.trim());
   if (page > 1) params.append('page', String(page));
