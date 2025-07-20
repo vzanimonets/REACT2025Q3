@@ -95,3 +95,17 @@ describe('App', () => {
     expect(screen.getByRole('main')).toBeInTheDocument();
   });
 });
+
+describe('App localStorage integration', () => {
+  it('reads searchTerm and highlight from localStorage on mount', () => {
+    jest
+      .spyOn(Storage.prototype, 'getItem')
+      .mockImplementationOnce((key) => (key === 'searchTerm' ? 'Vader' : null))
+      .mockImplementationOnce((key) => (key === 'highlight' ? 'false' : null));
+    render(<App />);
+    expect(Storage.prototype.getItem).toHaveBeenCalledWith('searchTerm');
+    expect(Storage.prototype.getItem).toHaveBeenCalledWith('highlight');
+    expect(screen.getByRole('textbox')).toHaveValue('Vader');
+    expect(screen.getByLabelText('Highlight search term')).not.toBeChecked();
+  });
+});
