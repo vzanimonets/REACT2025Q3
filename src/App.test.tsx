@@ -41,9 +41,8 @@ describe('App', () => {
 
   it('renders HighlightToggle in initial checked state', () => {
     render(<App />);
-    const checkbox = screen.getByLabelText('Highlight search term');
-    expect(checkbox).toBeInTheDocument();
-    expect(checkbox).toBeChecked();
+    expect(screen.getByLabelText('Highlight search term')).toBeInTheDocument();
+    expect(screen.getByLabelText('Highlight search term')).toBeChecked();
   });
 
   it('toggles highlight state and updates localStorage when clicked', () => {
