@@ -1,26 +1,7 @@
 import '@testing-library/jest-dom';
-import React from 'react';
 import { render } from '@testing-library/react';
 import Card from './Card';
-
-const mockPerson = {
-  name: 'Luke Skywalker',
-  url: '1',
-  height: '172',
-  mass: '77',
-  hair_color: 'blond',
-  skin_color: 'fair',
-  eye_color: 'blue',
-  birth_year: '19BBY',
-  gender: 'male',
-  homeworld: '',
-  films: [],
-  species: [],
-  vehicles: [],
-  starships: [],
-  created: '',
-  edited: '',
-};
+import mockPerson from '../mocks/MockPerson';
 
 describe('Card', () => {
   it('should render without crashing', () => {
