@@ -9,12 +9,13 @@ describe('fetchPeople', () => {
   });
 
   it('calls correct URL with search and page', async () => {
-    mockFetch.mockResolvedValueOnce({
+    const mockResponse = {
       ok: true,
       json: async () => ({ results: [{ name: 'Luke' }] }),
       status: 200,
       statusText: 'OK',
-    });
+    };
+    mockFetch.mockResolvedValueOnce(mockResponse);
     const data = await fetchPeople({ search: 'Luke', page: 2 });
     expect(mockFetch).toHaveBeenCalledWith(
       expect.stringContaining('search=Luke')
