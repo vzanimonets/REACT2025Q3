@@ -30,7 +30,12 @@ describe('App', () => {
 
   it('renders main title and search input', () => {
     render(<App />);
-    expect(screen.getByText('Star Wars Characters Search')).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        name: 'Star Wars Characters Search',
+        level: 1,
+      })
+    ).toBeInTheDocument();
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 

@@ -56,7 +56,7 @@ class App extends Component<object, AppState> {
     return (
       <div className="w-full min-h-screen p-2 bg-white dark:bg-gray-900 rounded-none shadow-none flex flex-col">
         <header className="flex flex-col items-center mb-6 mt-4 text-black dark:text-white">
-          <h1 className="text-center text-4xl font-bold mb-2">
+          <h1 className="text-center text-4xl font-bold mb-2" role="heading">
             Star Wars Characters Search
           </h1>
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 w-full max-w-md">
