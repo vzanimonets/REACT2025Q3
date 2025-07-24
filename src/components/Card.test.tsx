@@ -4,14 +4,18 @@ import Card from './Card';
 import mockPerson from '../mocks/MockPerson';
 
 describe('Card', () => {
+  const baseProps = {
+    person: mockPerson,
+    highlight: false,
+    searchTerm: '',
+  };
+
   it('should render without crashing', () => {
-    render(<Card person={mockPerson} highlight={false} />);
+    render(<Card {...baseProps} highlight={false} />);
   });
 
   it('renders all person fields', () => {
-    const { getByText, getAllByText } = render(
-      <Card person={mockPerson} highlight={false} />
-    );
+    const { getByText, getAllByText } = render(<Card {...baseProps} />);
     expect(getByText('Luke Skywalker')).toBeInTheDocument();
     expect(getByText('172')).toBeInTheDocument();
     expect(getByText('77')).toBeInTheDocument();
@@ -25,7 +29,7 @@ describe('Card', () => {
 
   it('highlights name when highlight=true and searchTerm matches', () => {
     const { container } = render(
-      <Card person={mockPerson} highlight={true} searchTerm="Luke" />
+      <Card {...baseProps} highlight={true} searchTerm="Luke" />
     );
     const mark = container.querySelector('mark');
     expect(mark).toBeInTheDocument();
@@ -33,8 +37,9 @@ describe('Card', () => {
   });
 
   it('renders empty name cell if name is empty', () => {
-    const person = { ...mockPerson, name: '' };
-    const { getByTestId } = render(<Card person={person} highlight={false} />);
+    const { getByTestId } = render(
+      <Card {...baseProps} person={{ ...mockPerson, name: '' }} />
+    );
     const row = getByTestId('person-row');
     const firstCell = row.querySelector('div');
     expect(firstCell).toBeInTheDocument();
