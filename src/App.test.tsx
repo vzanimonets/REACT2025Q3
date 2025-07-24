@@ -39,14 +39,22 @@ describe('App', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 
-  it('renders HighlightToggle and toggles highlight state', () => {
+  it('renders HighlightToggle in initial checked state', () => {
     render(<App />);
     const checkbox = screen.getByLabelText('Highlight search term');
     expect(checkbox).toBeInTheDocument();
     expect(checkbox).toBeChecked();
+  });
+
+  it('toggles highlight state and updates localStorage when clicked', () => {
+    render(<App />);
+    const checkbox = screen.getByLabelText('Highlight search term');
+
     act(() => {
       fireEvent.click(checkbox);
     });
+
+    expect(checkbox).not.toBeChecked();
     expect(Storage.prototype.setItem).toHaveBeenCalledWith(
       'highlight',
       'false'
