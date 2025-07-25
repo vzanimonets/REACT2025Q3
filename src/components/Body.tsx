@@ -5,7 +5,7 @@ import type { SwapiPerson } from '../api/swapi';
 import type { ErrorObject } from '../types';
 import { CSS_CLASSES } from '../utils/constants';
 
-interface ResultsBodyProps {
+interface BodyProps {
   people: SwapiPerson[];
   loading?: boolean;
   error?: ErrorObject | null;
@@ -13,13 +13,13 @@ interface ResultsBodyProps {
   highlight?: boolean;
 }
 
-const ResultsBody = ({
+const Body = ({
   people,
   loading = false,
   error,
   searchTerm,
   highlight,
-}: ResultsBodyProps) => {
+}: BodyProps) => {
   if (loading) {
     return (
       <div className={CSS_CLASSES.RESULTS_CONTAINER}>
@@ -60,4 +60,4 @@ const ResultsBody = ({
   );
 };
 
-export default ResultsBody;
+export default Body;

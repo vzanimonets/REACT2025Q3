@@ -1,6 +1,6 @@
 import TableCell from './TableCell';
 
-const ResultsHeader = () => (
+const Header = () => (
   <div className="grid grid-cols-10 font-bold border-b border-gray-200 dark:border-gray-700 py-3 bg-gray-50 dark:bg-gray-800 text-sm md:text-base sticky top-0 z-10 text-black dark:text-white">
     <TableCell isHeader>Name</TableCell>
     <TableCell isHeader>Height</TableCell>
@@ -15,4 +15,4 @@ const ResultsHeader = () => (
   </div>
 );
 
-export default ResultsHeader;
+export default Header;
