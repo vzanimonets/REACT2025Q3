@@ -2,18 +2,18 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import ErrorBoundary from './ErrorBoundary';
 
-function ProblemChild() {
+const ProblemChild = () => {
   throw new Error('Test error');
-  return <div />;
-}
+};
 
 describe('ErrorBoundary', () => {
   it('should render without crashing', () => {
-    render(
+    const { getByText } = render(
       <ErrorBoundary fallback={() => null}>
         <div>Child</div>
       </ErrorBoundary>
     );
+    expect(getByText('Child')).toBeInTheDocument();
   });
 
   it('catches error and logs to console.error', () => {
