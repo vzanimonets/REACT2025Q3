@@ -29,9 +29,7 @@ describe('Body', () => {
   });
 
   it('renders error message', () => {
-    render(
-      <Body people={[]} loading={false} error={{ text: 'API error' }} />
-    );
+    render(<Body people={[]} loading={false} error={{ text: 'API error' }} />);
     expect(screen.getByText(/api error/i)).toBeInTheDocument();
   });
 
