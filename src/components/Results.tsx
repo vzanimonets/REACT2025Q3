@@ -1,7 +1,7 @@
 import type { SwapiPerson } from '../api/swapi';
 import type { ErrorObject } from '../types';
-import ResultsBody from './ResultsBody';
-import ResultsHeader from './ResultsHeader';
+import Body from './Body';
+import Header from './Header';
 
 interface ResultsProps {
   people: SwapiPerson[];
@@ -22,8 +22,8 @@ function Results({
     <div className="w-full overflow-x-auto">
       <div className="min-w-[900px]">
         <div className="max-h-96 overflow-y-auto">
-          <ResultsHeader />
-          <ResultsBody
+          <Header />
+          <Body
             people={people}
             loading={loading}
             error={error ?? undefined}
