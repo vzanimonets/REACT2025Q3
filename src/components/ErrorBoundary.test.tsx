@@ -7,24 +7,23 @@ const ProblemChild = () => {
 };
 
 describe('ErrorBoundary', () => {
-  it('should render without crashing', () => {
+  it('renders child', () => {
+    const childText = 'Child';
     const { getByText } = render(
       <ErrorBoundary fallback={() => null}>
-        <div>Child</div>
+        <div>{childText}</div>
       </ErrorBoundary>
     );
-    expect(getByText('Child')).toBeInTheDocument();
+    expect(getByText(childText)).toBeInTheDocument();
   });
 
-  it('catches error and logs to console.error', () => {
+  it('catches error and logs', () => {
     const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    expect(() => {
-      render(
-        <ErrorBoundary fallback={() => <div>Fallback</div>}>
-          <ProblemChild />
-        </ErrorBoundary>
-      );
-    }).not.toThrow();
+    render(
+      <ErrorBoundary fallback={() => <div>Fallback</div>}>
+        <ProblemChild />
+      </ErrorBoundary>
+    );
     expect(errorSpy).toHaveBeenCalled();
     errorSpy.mockRestore();
   });
