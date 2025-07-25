@@ -15,16 +15,23 @@ describe('Card', () => {
   });
 
   it('renders all person fields', () => {
+    const expectedValues = [
+      'Luke Skywalker',
+      '172',
+      '77',
+      'blond',
+      'fair',
+      'blue',
+      '19BBY',
+      'male',
+    ];
+
     const { getByText, getAllByText } = render(<Card {...baseProps} />);
-    expect(getByText('Luke Skywalker')).toBeInTheDocument();
-    expect(getByText('172')).toBeInTheDocument();
-    expect(getByText('77')).toBeInTheDocument();
-    expect(getByText('blond')).toBeInTheDocument();
-    expect(getByText('fair')).toBeInTheDocument();
-    expect(getByText('blue')).toBeInTheDocument();
-    expect(getByText('19BBY')).toBeInTheDocument();
-    expect(getByText('male')).toBeInTheDocument();
-    expect(getAllByText('0').length).toBe(2);
+    expectedValues.forEach((value) => {
+      expect(getByText(value)).toBeInTheDocument();
+    });
+
+    expect(getAllByText('0')).toHaveLength(2);
   });
 
   it('highlights name when highlight=true and searchTerm matches', () => {
