@@ -6,24 +6,7 @@ import * as swapi from '../api/swapi';
 jest.mock('../api/swapi');
 const mockFetchPeople = swapi.fetchPeople as jest.Mock;
 
-const mockPerson = {
-  name: 'Luke Skywalker',
-  url: '1',
-  height: '172',
-  mass: '77',
-  hair_color: 'blond',
-  skin_color: 'fair',
-  eye_color: 'blue',
-  birth_year: '19BBY',
-  gender: 'male',
-  homeworld: '',
-  films: [],
-  species: [],
-  vehicles: [],
-  starships: [],
-  created: '',
-  edited: '',
-};
+import mockPerson from '../mocks/MockPerson';
 
 describe('ResultsContainer', () => {
   beforeEach(() => {

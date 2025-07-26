@@ -2,25 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Body from './Body';
 import '@testing-library/jest-dom';
-
-const mockPerson = {
-  name: 'Luke Skywalker',
-  url: '1',
-  height: '172',
-  mass: '77',
-  hair_color: 'blond',
-  skin_color: 'fair',
-  eye_color: 'blue',
-  birth_year: '19BBY',
-  gender: 'male',
-  homeworld: '',
-  films: [],
-  species: [],
-  vehicles: [],
-  starships: [],
-  created: '',
-  edited: '',
-};
+import mockPerson from '../mocks/MockPerson';
 
 describe('Body', () => {
   it('renders skeleton rows when loading', () => {
