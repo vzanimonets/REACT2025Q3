@@ -25,15 +25,10 @@ class App extends Component<object, AppState> {
     };
   }
 
-  handleSearchInputChange = (value: string) => {
-    this.setState({ searchTerm: value, artificialError: null });
-    localStorage.setItem('searchTerm', value);
-  };
-
-  handleSearch = (value: string) => {
-    const trimmed = value.trim();
-    this.setState({ searchTerm: trimmed, artificialError: null });
-    localStorage.setItem('searchTerm', trimmed);
+  updateSearchTerm = (value: string, trim: boolean = false) => {
+    const newValue = trim ? value.trim() : value;
+    this.setState({ searchTerm: newValue, artificialError: null });
+    localStorage.setItem('searchTerm', newValue);
   };
 
   handleThrowError = () => {
@@ -62,8 +57,8 @@ class App extends Component<object, AppState> {
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 w-full max-w-md">
             <SearchContainer
               value={searchTerm}
-              onChange={this.handleSearchInputChange}
-              onSearch={this.handleSearch}
+              onChange={(value) => this.updateSearchTerm(value, false)}
+              onSearch={(value) => this.updateSearchTerm(value, true)}
             />
             <HighlightToggle
               checked={highlight}
